@@ -194,3 +194,16 @@ func MustEncode(message interface{}, f Format) []byte {
 
 	return output.Bytes()
 }
+
+// Decode is a convenience function that attempts to decode a given message.
+func Decode(data []byte) (msg Message, ok bool) {
+
+	for _, f := range AllFormats() {
+		decoder := NewDecoder(bytes.NewBuffer(data), f)
+		err := decoder.Decode(&msg)
+		if err == nil {
+			return msg, true
+		}
+	}
+	return msg, false
+}

@@ -127,8 +127,12 @@ func testMessageEncode(t *testing.T, f Format, original Message) {
 
 	assert.NoError(encoder.Encode(&original))
 	assert.True(buffer.Len() > 0)
+	data := buffer.Bytes()
 	assert.NoError(decoder.Decode(&decoded))
 	assert.Equal(original, decoded)
+	msg, ok := Decode(data)
+	assert.True(ok)
+	assert.Equal(original, msg)
 }
 
 func TestMessage(t *testing.T) {
