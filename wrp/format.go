@@ -200,7 +200,7 @@ func Decode(message interface{}, data []byte) bool {
 
 	for _, f := range AllFormats() {
 		decoder := NewDecoder(bytes.NewBuffer(data), f)
-		err := decoder.Decode(&message)
+		err := decoder.Decode(message)
 		if err == nil {
 			return true
 		}
